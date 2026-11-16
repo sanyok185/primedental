@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Запис на прийом — Prime Dental</title>
+<meta name="description" content="Онлайн-запис до стоматолога Prime Dental у Рівному: оберіть послугу, лікаря та зручний час.">
+<meta name="theme-color" content="#4C6656">
+<meta property="og:title" content="Запис на прийом — Prime Dental">
+<meta property="og:description" content="Онлайн-запис до стоматолога Prime Dental у Рівному: оберіть послугу, лікаря та зручний час.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="uk_UA">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234C6656'/%3E%3Cpath d='M9 17l5 5 9-11' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=EB+Garamond:ital,wght@1,600&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="booking-page">
+<a class="skip-link" href="#main">До основного вмісту</a>
+<main id="main" class="booking">
+<div class="booking__card">
+<form id="booking-form" novalidate>
+<div class="bk-head"><h1 class="bk-title" id="bk-title">Запис на прийом</h1><a class="bk-close" href="index.html" aria-label="Закрити"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2A2421" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></a></div>
+<div class="bk-progress" id="bk-progress" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
+
+<section class="bk-step active" data-step="1" aria-labelledby="bk-title">
+<div class="bk-label" id="svc-label">Що вас турбує?</div>
+<div class="opts" role="radiogroup" aria-labelledby="svc-label"><label class="opt"><input type="radio" name="service" value="consult" data-label="Консультація" checked><span class="opt__name">Не знаю — потрібна консультація</span></label><label class="opt"><input type="radio" name="service" value="treatment" data-label="Лікування"><span class="opt__row"><span class="opt__name">Лікування</span><span class="opt__price">від 900 грн</span></span></label><label class="opt"><input type="radio" name="service" value="hygiene" data-label="Гігієна"><span class="opt__row"><span class="opt__name">Гігієна</span><span class="opt__price">від 1 200 грн</span></span></label><label class="opt"><input type="radio" name="service" value="implant" data-label="Імплантація"><span class="opt__row"><span class="opt__name">Імплантація</span><span class="opt__price">від 18 000 грн</span></span></label><label class="opt"><input type="radio" name="service" value="prosthetics" data-label="Протезування"><span class="opt__row"><span class="opt__name">Протезування</span><span class="opt__price">від 6 500 грн</span></span></label><label class="opt"><input type="radio" name="service" value="ortho" data-label="Ортодонтія"><span class="opt__row"><span class="opt__name">Ортодонтія</span><span class="opt__price">від 25 000 грн</span></span></label><label class="opt"><input type="radio" name="service" value="aesthetic" data-label="Естетика"><span class="opt__row"><span class="opt__name">Естетика</span><span class="opt__price">від 3 500 грн</span></span></label></div>
+<div class="bk-actions"><button class="btn" type="button" data-next>Далі</button></div>
+</section>
+
+<section class="bk-step" data-step="2" aria-labelledby="bk-title">
+<div class="bk-label" id="doc-label">Лікар</div>
+<div class="opts" role="radiogroup" aria-labelledby="doc-label"><label class="opt"><input type="radio" name="doctor" value="any" data-label="будь-який лікар" checked><span class="opt__name">Будь-який вільний лікар</span></label><label class="opt opt--doc"><input type="radio" name="doctor" value="Олена Кравчук" data-label="Олена Кравчук"><img class="opt__avatar" src="img/olena.jpg" alt="" width="40" height="40"><span class="opt__doc"><span class="opt__name">Олена Кравчук</span><span class="opt__role">Терапевт</span></span></label><label class="opt opt--doc"><input type="radio" name="doctor" value="Андрій Мельник" data-label="Андрій Мельник"><img class="opt__avatar" src="img/andriy.jpg" alt="" width="40" height="40"><span class="opt__doc"><span class="opt__name">Андрій Мельник</span><span class="opt__role">Ортодонт</span></span></label><label class="opt opt--doc"><input type="radio" name="doctor" value="Віктор Савчук" data-label="Віктор Савчук"><img class="opt__avatar" src="img/viktor.jpg" alt="" width="40" height="40"><span class="opt__doc"><span class="opt__name">Віктор Савчук</span><span class="opt__role">Хірург-імплантолог</span></span></label></div>
+<div class="bk-label" id="date-label">Дата</div>
+<div class="chips chips--5" id="dates" role="radiogroup" aria-labelledby="date-label"></div>
+<div class="bk-label" id="time-label">Час</div>
+<div class="chips chips--4" id="times" role="radiogroup" aria-labelledby="time-label"></div>
+<p class="error" id="time-error" role="alert"></p>
+<div class="bk-actions"><button class="btn btn--outline" type="button" data-back>Назад</button><button class="btn" type="button" data-next>Далі</button></div>
+</section>
+
+<section class="bk-step" data-step="3" aria-labelledby="bk-title">
+<div class="bk-summary" data-summary></div>
+<label class="field" data-field="name">Ім'я<input type="text" name="name" autocomplete="name" placeholder="Як до вас звертатися" required><span class="error" role="alert"></span></label>
+<label class="field" data-field="phone">Телефон<input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+380" required><span class="error" role="alert"></span></label>
+<label class="field" data-field="comment">Коментар (необов'язково)<textarea name="comment" rows="3" placeholder="Що турбує, побажання"></textarea></label>
+<div data-field="consent"><label class="consent"><input type="checkbox" name="consent" checked> Погоджуюсь з обробкою персональних даних</label><span class="error" role="alert"></span></div>
+<div class="bk-actions"><button class="btn btn--outline" type="button" data-back>Назад</button><button class="btn" type="submit">Записатися</button></div>
+</section>
+
+<section class="bk-step bk-done" data-step="4" aria-live="polite">
+<div class="bk-done__mark" aria-hidden="true"><svg aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"></path></svg></div>
+<h2 class="bk-title">Заявку прийнято</h2>
+<p class="muted">Адміністратор зателефонує протягом 15 хвилин, щоб підтвердити запис.</p>
+<div class="bk-summary" data-summary data-address="м. Рівне, вул. Соборна, 112"></div>
+<button class="btn btn--outline" type="button" id="add-calendar">Додати в календар</button>
+<a class="link" href="index.html">На головну</a>
+</section>
+</form>
+</div>
+</main>
+<script src="js/booking.js" defer></script>
+</body>
+</html>
