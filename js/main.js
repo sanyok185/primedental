@@ -73,7 +73,8 @@
     node.nodeValue = m[1] + fmt(0) + m[3];
     requestAnimationFrame(step);
   }
-  var counters = Array.prototype.slice.call(document.querySelectorAll('.stat__num, .stats-3 b'));
+  // лічильник лише на «Про клініку»; на головній цифри статичні
+  var counters = Array.prototype.slice.call(document.querySelectorAll('.stats-3 b'));
 
   if (reduce || !('IntersectionObserver' in window)) {
     targets.forEach(function (el) { el.classList.add('is-in'); });
@@ -92,9 +93,7 @@
     entries.forEach(function (en) {
       if (!en.isIntersecting) return;
       cio.unobserve(en.target);
-      // цифри на першому екрані стартують разом з появою блоку статистики
-      if (en.target.closest('.stats')) countUp(en.target);
-      else countUp(en.target);
+      countUp(en.target);
     });
   }, { threshold: 0.6 });
   counters.forEach(function (el) { cio.observe(el); });
