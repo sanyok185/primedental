@@ -373,7 +373,7 @@ a.card:hover .card__title { color: var(--sage-dark); }
 }
 .doc-card > div { display: flex; flex-direction: column; gap: 2px; }
 .doc-card .muted { font-size: 15px; line-height: 22px; }
-.doc-card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 20%; border-radius: 8px; background: var(--photo); }
+.doc-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 25%; border-radius: 8px; background: var(--photo); }
 .doc-card__name { font-family: var(--font-head); font-weight: 600; font-size: 20px; line-height: 28px; }
 .doc-card__role { font-weight: 600; color: var(--sage); }
 .doc-card a { font-weight: 600; color: var(--ink); text-decoration: none; }
