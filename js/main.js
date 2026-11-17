@@ -2,8 +2,15 @@
   var burger = document.querySelector('.burger');
   var menu = document.getElementById('mobile-menu');
   if (!burger || !menu) return;
+  // затемнення сторінки під меню; клік по ньому закриває меню
+  var backdrop = document.createElement('div');
+  backdrop.className = 'menu-backdrop';
+  document.body.appendChild(backdrop);
+  backdrop.addEventListener('click', function () { set(false); });
   function set(open) {
     menu.classList.toggle('open', open);
+    backdrop.classList.toggle('on', open);
+    document.body.classList.toggle('menu-open', open);
     burger.setAttribute('aria-expanded', String(open));
   }
   burger.addEventListener('click', function () { set(!menu.classList.contains('open')); });
