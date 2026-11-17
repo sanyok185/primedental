@@ -92,7 +92,9 @@
     entries.forEach(function (en) {
       if (!en.isIntersecting) return;
       cio.unobserve(en.target);
-      countUp(en.target);
+      // цифри на першому екрані стартують разом з появою блоку статистики
+      if (en.target.closest('.stats')) setTimeout(function () { countUp(en.target); }, 150);
+      else countUp(en.target);
     });
   }, { threshold: 0.6 });
   counters.forEach(function (el) { cio.observe(el); });
