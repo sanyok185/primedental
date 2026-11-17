@@ -177,3 +177,41 @@
   }, { passive: true });
   update();
 })();
+
+/* ---------- Часті питання: плавне розкриття й закриття ---------- */
+(function () {
+  var list = Array.prototype.slice.call(document.querySelectorAll('.faq details'));
+  if (!list.length || !('animate' in document.body)) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function toggle(d, open) {
+    if (d._anim) { d._anim.cancel(); d._anim = null; }
+    d._target = open;
+    if (reduce) { d.open = open; return; }
+    var start = d.offsetHeight;
+    d.open = open;                 // кінцева висота
+    var end = d.offsetHeight;
+    d.open = true;                 // поки йде анімація, вміст видно
+    d.style.overflow = 'hidden';
+    var a = d.animate({ height: [start + 'px', end + 'px'] }, { duration: 450, easing: 'cubic-bezier(.2, .7, .2, 1)' });
+    d._anim = a;
+    a.onfinish = function () { d.open = open; d.style.overflow = ''; d._anim = null; };
+  }
+
+  list.forEach(function (d) {
+    // «одне відкрите питання» обробляємо самі, щоб інші теж закривалися плавно
+    d.dataset.group = d.getAttribute('name') || '';
+    d.removeAttribute('name');
+    d._target = d.open;
+    d.querySelector('summary').addEventListener('click', function (e) {
+      e.preventDefault();
+      var open = !d._target;
+      if (open && d.dataset.group) {
+        list.forEach(function (o) {
+          if (o !== d && o.dataset.group === d.dataset.group && o._target) toggle(o, false);
+        });
+      }
+      toggle(d, open);
+    });
+  });
+})();
