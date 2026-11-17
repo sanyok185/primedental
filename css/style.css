@@ -307,6 +307,7 @@ a.card:hover .card__title { color: var(--sage-dark); }
   display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap;
 }
 .cta--white { background: var(--white); border-color: var(--line); }
+.cta .btn { align-self: center; }
 .cta__text { display: flex; flex-direction: column; gap: 8px; max-width: 640px; }
 .cta__text p { color: var(--ink-soft); }
 .note { font-size: 12px; line-height: 16px; color: var(--muted); }
