@@ -8,7 +8,7 @@
   var progress = document.getElementById('bk-progress').children;
   var head = form.querySelector('.bk-head');
   var title = document.getElementById('bk-title');
-  var titles = ['Запис на прийом', 'Лікар і час', 'Ваші контакти'];
+  var titles = ['Запис на\u00a0прийом', 'Лікар і час', 'Ваші контакти'];
   var DAYS = ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
   var MONTHS = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'];
   var WEEKDAY_FULL = ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
