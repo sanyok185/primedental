@@ -545,9 +545,9 @@ a.card:hover .card__title { color: var(--sage-dark); }
   }
   .menu-backdrop.on { opacity: 1; visibility: visible; transition: opacity .3s var(--ease), visibility 0s; }
   body.menu-open { overflow: hidden; }
-  .mobile-menu.open { display: flex; }
+  .mobile-menu.open { display: flex; align-items: center; text-align: center; }
   .mobile-menu a:not(.btn) {
-    display: flex; align-items: center; min-height: 48px; text-decoration: none; font-weight: 500;
+    display: flex; align-items: center; justify-content: center; min-height: 48px; text-decoration: none; font-weight: 500;
   }
   .mobile-menu a[aria-current="page"] { color: var(--sage); font-weight: 600; }
   .mobile-menu .btn { margin-top: 8px; width: 100%; }
