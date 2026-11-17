@@ -778,6 +778,8 @@ a.card:hover .card__title { color: var(--sage-dark); }
   .step:hover .step__icon { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(61, 84, 70, .18); }
   .why__img img, .hero__media > img, .service-hero__media img { transition: transform 1.2s var(--ease); }
   .why__img:hover img, .hero__media:hover > img, .service-hero__media:hover img { transform: scale(1.04); }
+  /* на головній фото при наведенні не збільшуються */
+  .page-home img, .page-home .zoom img { transform: none !important; }
   .service-hero__media { overflow: hidden; border-radius: 24px; }
 
   .brand:hover { color: var(--sage); transform: translateY(-2px); }
