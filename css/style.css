@@ -566,11 +566,12 @@ a.card:hover .card__title { color: var(--sage-dark); }
   body.menu-open { overflow: hidden; }
   .mobile-menu.open { display: flex; align-items: center; text-align: center; }
   .mobile-menu a:not(.btn) {
-    display: flex; align-items: center; justify-content: center; min-height: 48px; text-decoration: none; font-weight: 500;
+    display: flex; align-items: center; justify-content: center; min-height: 52px; text-decoration: none; font-weight: 500;
+    font-size: 19px; line-height: 26px;
   }
   .mobile-menu a[aria-current="page"] { color: var(--sage); font-weight: 600; }
   .mobile-menu .btn { margin-top: 8px; width: 100%; }
-  .mobile-menu a[href^="tel:"] { font-size: 20px; font-weight: 700; color: var(--sage); letter-spacing: 0.01em; }
+  .mobile-menu a[href^="tel:"] { font-size: 22px; font-weight: 700; color: var(--sage); letter-spacing: 0.01em; }
 
   /* головна */
   .hero { padding: 32px 24px; }
