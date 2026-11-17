@@ -159,3 +159,15 @@
     start();
   });
 })();
+
+/* ---------- Закріплена кнопка запису (мобільні): з'являється після ~800px скролу ---------- */
+(function () {
+  var bar = document.querySelector('.sticky-cta');
+  if (!bar) return;
+  var ticking = false;
+  function update() { bar.classList.toggle('is-shown', window.scrollY > 800); ticking = false; }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+})();

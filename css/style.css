@@ -623,7 +623,11 @@ a.card:hover .card__title { color: var(--sage-dark); }
     display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; padding: 12px 24px;
     background: rgba(251, 248, 243, 0.96); border-top: 1px solid var(--line);
     box-shadow: 0 -4px 16px rgba(42, 36, 33, 0.08);
+    /* схована під краєм екрана, виїжджає після ~800px скролу (клас ставить js/main.js) */
+    transform: translateY(110%); visibility: hidden;
+    transition: transform .5s var(--ease), visibility 0s linear .5s;
   }
+  .sticky-cta.is-shown { transform: none; visibility: visible; transition: transform .5s var(--ease), visibility 0s; }
   .sticky-cta .btn { width: 100%; }
 
   /* запис */
