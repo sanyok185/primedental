@@ -25,3 +25,6 @@ index.html · services.html · service-treatment.html · doctors.html · about.h
 - Ховери (картки, кнопки, меню, фото, FAQ, форма запису) — у кінці `css/style.css`, обгорнуті в `@media (hover: hover)`.
 - `prefers-reduced-motion` вимикає всі анімації.
 - Контейнер 1300 px; мобільна версія — до 860 px.
+
+## Зображення
+Усі фото в форматі AVIF (`img/*.avif`, ~590 КБ замість ~1,45 МБ у JPEG). AVIF підтримують усі сучасні браузери (Chrome, Edge, Firefox, Safari 16+).

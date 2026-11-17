@@ -30,7 +30,7 @@ body {
   font-size: 16px;
   line-height: 24px;
 }
-img { display: block; max-width: 100%; height: auto; }
+img { display: block; max-width: 100%; }
 a { color: var(--ink); }
 a:hover { color: var(--sage-dark); }
 :focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
@@ -121,7 +121,7 @@ h1, h2, h3, p { margin: 0; }
 .crumbs [aria-current] { color: var(--ink); }
 
 /* ---------- Головна: перший екран ---------- */
-.hero { max-width: var(--container); margin: 0 auto; padding: 24px; }
+.hero { max-width: var(--container); margin: 0 auto; padding: 24px 24px 0; }
 .hero__grid {
   display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px;
   align-items: center; min-height: 560px;
@@ -207,6 +207,7 @@ a.card:hover .card__title { color: var(--sage-dark); }
 }
 .step__body { display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .step__text { color: var(--muted); max-width: 280px; }
+.step__num { font-family: 'EB Garamond', Georgia, serif; font-style: italic; font-weight: 600; font-size: 40px; line-height: 40px; color: var(--sage); }
 
 /* ---------- Лікарі на головній ---------- */
 .doctor { display: flex; flex-direction: column; gap: 16px; }
@@ -334,7 +335,7 @@ a.card:hover .card__title { color: var(--sage-dark); }
 .doc-card a:hover { color: var(--sage-dark); }
 
 /* Про клініку */
-.about-hero { background: var(--photo) url("../img/hero.jpg") 60% 45% / cover no-repeat; }
+.about-hero { background: var(--photo) url("../img/hero.avif") 60% 45% / cover no-repeat; }
 .about-hero__shade { background: linear-gradient(90deg, rgba(251, 248, 243, 0.97) 0%, rgba(251, 248, 243, 0.9) 45%, rgba(251, 248, 243, 0.12) 100%); }
 .about-hero__inner { padding: 48px 24px 120px; display: flex; flex-direction: column; gap: 72px; }
 .about-hero__text { max-width: 640px; display: flex; flex-direction: column; gap: 24px; }
@@ -487,7 +488,7 @@ a.card:hover .card__title { color: var(--sage-dark); }
   .mobile-menu .btn { margin-top: 8px; width: 100%; }
 
   /* головна */
-  .hero { padding: 32px 24px; }
+  .hero { padding: 32px 24px 0; }
   .hero__grid { grid-template-columns: 1fr; gap: 24px; min-height: 0; }
   .hero__text { padding: 0; }
   .hero__text .btn { width: 100%; }
@@ -527,6 +528,7 @@ a.card:hover .card__title { color: var(--sage-dark); }
   .step__icon svg { width: 24px; height: 24px; }
   .step__body { align-items: flex-start; gap: 4px; padding-top: 2px; }
   .step__text { max-width: none; }
+  .step__num { font-size: 32px; line-height: 32px; }
   .steps-wrap .btn { width: 100%; }
   .grid-3.doctors { gap: 32px; }
   .doctor { gap: 12px; }
