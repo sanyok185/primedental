@@ -514,12 +514,13 @@ a.card:hover .card__title { color: var(--sage-dark); }
   .h1 { font-size: 32px; line-height: 40px; }
   .h2 { font-size: 28px; line-height: 36px; }
   .lead { font-size: 16px; line-height: 24px; }
-  body { padding-bottom: 80px; }
+  body { padding-bottom: 64px; }
   body.booking-page { padding-bottom: 0; }
 
   /* шапка */
-  .header__inner { padding: 12px 24px; min-height: 48px; display: flex; justify-content: space-between; }
-  .logo { font-size: 20px; }
+  .header__inner { padding: 6px 20px; min-height: 52px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-size: 18px; }
+  .burger { width: 44px; height: 44px; margin-right: -10px; }
   .nav, .header__cta { display: none; }
   .burger { display: flex; }
   /* шапка закріплена зверху, меню відкривається поверх сторінки */
@@ -528,7 +529,7 @@ a.card:hover .card__title { color: var(--sage-dark); }
   .burger svg { stroke: currentColor; }
   .mobile-menu {
     display: none; flex-direction: column; gap: 4px; padding: 8px 24px 24px;
-    position: absolute; left: 0; right: 0; top: 100%; max-height: calc(100dvh - 72px); overflow-y: auto;
+    position: absolute; left: 0; right: 0; top: 100%; max-height: calc(100dvh - 56px); overflow-y: auto;
     background: var(--cream); border-bottom: 1px solid var(--line); border-radius: 0 0 20px 20px;
     box-shadow: 0 24px 40px -20px rgba(42, 36, 33, 0.35);
   }
@@ -628,7 +629,7 @@ a.card:hover .card__title { color: var(--sage-dark); }
 
   /* закріплена кнопка */
   .sticky-cta {
-    display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; padding: 12px 24px;
+    display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; padding: 8px 20px calc(8px + env(safe-area-inset-bottom));
     background: rgba(251, 248, 243, 0.96); border-top: 1px solid var(--line);
     box-shadow: 0 -4px 16px rgba(42, 36, 33, 0.08);
     /* схована під краєм екрана, виїжджає після ~800px скролу (клас ставить js/main.js) */
@@ -636,7 +637,7 @@ a.card:hover .card__title { color: var(--sage-dark); }
     transition: transform .5s var(--ease), visibility 0s linear .5s;
   }
   .sticky-cta.is-shown { transform: none; visibility: visible; transition: transform .5s var(--ease), visibility 0s; }
-  .sticky-cta .btn { width: 100%; }
+  .sticky-cta .btn { width: 100%; min-height: 44px; font-size: 15px; }
 
   /* запис */
   .booking { padding: 16px; }
