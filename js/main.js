@@ -12,92 +12,88 @@
   window.addEventListener('resize', function () { if (window.innerWidth > 860) set(false); });
 })();
 
-/* Липка шапка: тінь після скролу */
+/* ---------- Поява елементів при скролі + лічильники ---------- */
 (function () {
-  var header = document.querySelector('.header');
-  if (!header) return;
-  var ticking = false;
-  function update() { header.classList.toggle('is-scrolled', window.scrollY > 8); ticking = false; }
-  window.addEventListener('scroll', function () {
-    if (!ticking) { ticking = true; requestAnimationFrame(update); }
-  }, { passive: true });
-  update();
-})();
-
-/* Поява блоків при скролі та лічильники цифр */
-(function () {
-  var root = document.documentElement;
-  if (!root.classList.contains('js-anim')) return;
-
-  // Блоки, що плавно з'являються (вкладені один в одного тут не перетинаються)
-  var REVEAL = [
-    '.section-head', '.stack.text-center', '.grid-3 > *', '.why__img', '.why__body > :not(.reasons)', '.reason',
-    '.steps-wrap > .h2', '.step', '.steps-wrap > .btn', '.stack--40 > .map', '.stack--40 > .btn', '.cta',
-    '.faq > .h2', '.faq__list > details', '.aside', '.included', '.price-row', '.stats-3 > *',
-    '.about-team > *', '.contacts-list > *', '.map--tall', '.note', '.stack--40 > div:not([class])',
-    '.footer__cols > *', '.footer__bottom'
-  ].join(',');
-  // Блоки, яким лише ставимо is-in (лінія кроків, піни, лічильники)
-  var TRIGGER = '.steps, .map, .stats, .stats-3';
-
-  var items = Array.prototype.slice.call(document.querySelectorAll(REVEAL));
-  items.forEach(function (el) {
-    el.setAttribute('data-reveal', '');
-    // невелика затримка для сусідів, щоб картки виїжджали по черзі
-    var sibs = Array.prototype.filter.call(el.parentNode.children, function (s) { return s.matches(REVEAL); });
-    var i = sibs.indexOf(el);
-    if (i > 0) el.style.setProperty('--d', Math.min(i * 0.1, 0.5) + 's');
-  });
-  var triggers = Array.prototype.slice.call(document.querySelectorAll(TRIGGER));
-
-  function show(el) {
-    el.classList.add('is-in');
-    if (el.matches('.stats, .stats-3')) countUp(el);
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var groups = [
+    // [селектор контейнера з дітьми для каскаду, ефект]
+    ['.grid-3', null], ['.reasons', null], ['.steps', 'self'], ['.stats-3', null],
+    ['.contacts-list', null], ['.trust__row', null], ['.faq__list', null], ['.page-top__text', null],
+    ['.service-hero__text', null], ['.hero__text', 'skip'], ['.list', null], ['.aside', null]
+  ];
+  var singles = [
+    '.section-head', '.section .h2.text-center', '.why__img', '.why__body > .btn', '.steps-wrap > .btn',
+    '.cta', '.map', '.trust__label', '.service-hero__media', '.about-team > *', '.split > *',
+    '.contacts-grid > *', '.crumbs', '.faq > h2', '.page-top__inner > .btn', 'main .section .stack > .text-center',
+    'main .section .stack > div[style*="justify-content:center"]', '.review', '.bk-head'
+  ];
+  var targets = [];
+  function add(el, d, kind) {
+    if (!el || el.hasAttribute('data-reveal') || el.closest('.hero') ) return;
+    el.setAttribute('data-reveal', kind || '');
+    if (d) el.style.setProperty('--d', d + 's');
+    targets.push(el);
   }
+  groups.forEach(function (g) {
+    document.querySelectorAll(g[0]).forEach(function (box) {
+      if (g[1] === 'skip') return;
+      if (g[1] === 'self') { add(box, 0, ''); return; }
+      Array.prototype.forEach.call(box.children, function (c, i) { add(c, Math.min(i, 5) * 0.09, ''); });
+    });
+  });
+  singles.forEach(function (sel) {
+    document.querySelectorAll(sel).forEach(function (el) { add(el, 0, ''); });
+  });
+  // сходинки першого візиту — каскад
+  document.querySelectorAll('.step').forEach(function (el, i) { add(el, 0.15 + i * 0.18, ''); });
+  document.querySelectorAll('.faq details').forEach(function (el, i) { add(el, Math.min(i, 5) * 0.07, ''); });
+  document.querySelectorAll('.price-row, .included').forEach(function (el, i) { add(el, Math.min(i % 6, 5) * 0.05, ''); });
+  document.querySelectorAll('.brand').forEach(function (el, i) { add(el, i * 0.08, 'pop'); });
 
-  if (!('IntersectionObserver' in window)) {
-    items.concat(triggers).forEach(show);
+  function countUp(el) {
+    var node = null;
+    el.childNodes.forEach(function (n) { if (!node && n.nodeType === 3 && /\d/.test(n.nodeValue)) node = n; });
+    if (!node) return;
+    var m = node.nodeValue.match(/^(\D*)([\d\s  ]*\d)(.*)$/);
+    if (!m) return;
+    var sep = (m[2].match(/[\s  ]/) || [''])[0];
+    var end = parseInt(m[2].replace(/[\s  ]/g, ''), 10);
+    var t0 = null, dur = 1400;
+    function fmt(v) {
+      var s = String(v);
+      return sep ? s.replace(/\B(?=(\d{3})+(?!\d))/g, sep) : s;
+    }
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 3);
+      node.nodeValue = m[1] + fmt(Math.round(end * e)) + m[3];
+      if (p < 1) requestAnimationFrame(step);
+    }
+    node.nodeValue = m[1] + fmt(0) + m[3];
+    requestAnimationFrame(step);
+  }
+  var counters = Array.prototype.slice.call(document.querySelectorAll('.stat__num, .stats-3 b'));
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    targets.forEach(function (el) { el.classList.add('is-in'); });
     return;
   }
   var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { show(e.target); io.unobserve(e.target); }
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      en.target.classList.add('is-in');
+      io.unobserve(en.target);
     });
-  }, { rootMargin: '0px 0px -40px 0px', threshold: 0.05 });
-  var all = items.concat(triggers);
-  all.forEach(function (el) { io.observe(el); });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  targets.forEach(function (el) { io.observe(el); });
 
-  // Внизу сторінки показуємо все, що лишилось (наприклад, низ футера)
-  function revealRest() {
-    if (window.innerHeight + window.scrollY < document.documentElement.scrollHeight - 4) return;
-    all.forEach(function (el) { if (!el.classList.contains('is-in')) { show(el); io.unobserve(el); } });
-    window.removeEventListener('scroll', revealRest);
-  }
-  window.addEventListener('scroll', revealRest, { passive: true });
-
-  // Лічильник: «4 800+» рахує від 0 до 4800, решта тексту лишається як є
-  function countUp(box) {
-    var nums = box.querySelectorAll('.stat__num, b');
-    Array.prototype.forEach.call(nums, function (el) {
-      var node = el.firstChild;
-      if (!node || node.nodeType !== 3) return;
-      var m = node.nodeValue.match(/^(\d+(?:[\s ]\d{3})*)(.*)$/);
-      if (!m) return;
-      var original = node.nodeValue;
-      var sep = (m[1].match(/[\s ]/) || [' '])[0];
-      var target = parseInt(m[1].replace(/[\s ]/g, ''), 10);
-      var tail = m[2];
-      var start = null, dur = 1600;
-      function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep); }
-      function frame(t) {
-        if (start === null) start = t;
-        var p = Math.min((t - start) / dur, 1);
-        var eased = 1 - Math.pow(1 - p, 3);
-        node.nodeValue = p < 1 ? fmt(Math.round(target * eased)) + tail : original;
-        if (p < 1) requestAnimationFrame(frame);
-      }
-      node.nodeValue = '0' + tail;
-      setTimeout(function () { requestAnimationFrame(frame); }, 300);
+  var cio = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      cio.unobserve(en.target);
+      countUp(en.target);
     });
-  }
+  }, { threshold: 0.6 });
+  counters.forEach(function (el) { cio.observe(el); });
 })();
