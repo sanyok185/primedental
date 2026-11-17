@@ -34,7 +34,8 @@
     '.section-head', '.stack.text-center', '.grid-3 > *', '.why__img', '.why__body > :not(.reasons)', '.reason',
     '.steps-wrap > .h2', '.step', '.steps-wrap > .btn', '.stack--40 > .map', '.stack--40 > .btn', '.cta',
     '.faq > .h2', '.faq__list > details', '.aside', '.included', '.price-row', '.stats-3 > *',
-    '.about-team > *', '.contacts-list > *', '.map--tall'
+    '.about-team > *', '.contacts-list > *', '.map--tall', '.note', '.stack--40 > div:not([class])',
+    '.footer__cols > *', '.footer__bottom'
   ].join(',');
   // Блоки, яким лише ставимо is-in (лінія кроків, піни, лічильники)
   var TRIGGER = '.steps, .map, .stats, .stats-3';
@@ -62,8 +63,17 @@
     entries.forEach(function (e) {
       if (e.isIntersecting) { show(e.target); io.unobserve(e.target); }
     });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
-  items.concat(triggers).forEach(function (el) { io.observe(el); });
+  }, { rootMargin: '0px 0px -40px 0px', threshold: 0.05 });
+  var all = items.concat(triggers);
+  all.forEach(function (el) { io.observe(el); });
+
+  // Внизу сторінки показуємо все, що лишилось (наприклад, низ футера)
+  function revealRest() {
+    if (window.innerHeight + window.scrollY < document.documentElement.scrollHeight - 4) return;
+    all.forEach(function (el) { if (!el.classList.contains('is-in')) { show(el); io.unobserve(el); } });
+    window.removeEventListener('scroll', revealRest);
+  }
+  window.addEventListener('scroll', revealRest, { passive: true });
 
   // Лічильник: «4 800+» рахує від 0 до 4800, решта тексту лишається як є
   function countUp(box) {

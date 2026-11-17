@@ -19,7 +19,8 @@
   --font-body: 'Manrope', system-ui, sans-serif;
   --container: 1200px;
   --ease-out: cubic-bezier(.22, .61, .36, 1);
-  --t-hover: .45s;
+  --t-hover: .6s;
+  --ease-hover: cubic-bezier(.33, 0, .2, 1);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -448,43 +449,52 @@ a.card:hover .card__title { color: var(--sage-dark); }
    ====================================================== */
 
 /* --- Плавні переходи --- */
-a { transition: color var(--t-hover) var(--ease-out); }
+a {
+  transition: color var(--t-hover) var(--ease-hover), text-decoration-color var(--t-hover) var(--ease-hover),
+    opacity var(--t-hover) var(--ease-hover);
+}
+.faq summary { transition: color var(--t-hover) var(--ease-hover); }
+/* підкреслення у футері проявляється плавно, а не стрибком */
+.footer a { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; }
+.footer a:hover { text-decoration-color: currentColor; }
+.footer .btn--light, .footer .btn--light:hover, .footer__social a { text-decoration: none; }
+.footer__bottom a { text-decoration-color: currentColor; }
 .btn {
   position: relative; overflow: hidden; isolation: isolate;
-  transition: background-color var(--t-hover) var(--ease-out), color var(--t-hover) var(--ease-out),
-    transform var(--t-hover) var(--ease-out), box-shadow var(--t-hover) var(--ease-out);
+  transition: background-color var(--t-hover) var(--ease-hover), color var(--t-hover) var(--ease-hover),
+    transform var(--t-hover) var(--ease-hover), box-shadow var(--t-hover) var(--ease-hover);
 }
 /* відблиск, що пробігає кнопкою */
 .btn::after {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
-  transform: translateX(-120%); transition: transform .8s var(--ease-out);
+  transform: translateX(-120%); transition: transform 1s var(--ease-hover);
 }
 .btn--light::after, .btn--outline::after {
   background: linear-gradient(110deg, transparent 30%, rgba(76, 102, 86, 0.14) 50%, transparent 70%);
 }
-.arr { display: inline-block; transition: transform var(--t-hover) var(--ease-out); }
+.arr { display: inline-block; transition: transform var(--t-hover) var(--ease-hover); }
 .zoom { display: block; overflow: hidden; border-radius: 8px; }
 .doctor .zoom { border-radius: 16px; }
-.zoom img { transition: transform 1s var(--ease-out); }
+.zoom img { transition: transform 1.2s var(--ease-hover); }
 .card, .doc-card, .review, .info-card, .doctor {
-  transition: transform var(--t-hover) var(--ease-out), box-shadow var(--t-hover) var(--ease-out),
-    border-color var(--t-hover) var(--ease-out);
+  transition: transform var(--t-hover) var(--ease-hover), box-shadow var(--t-hover) var(--ease-hover),
+    border-color var(--t-hover) var(--ease-hover);
 }
-.card__title, .doctor__name, .doc-card__name { transition: color var(--t-hover) var(--ease-out); }
+.card__title, .doctor__name, .doc-card__name { transition: color var(--t-hover) var(--ease-hover); }
 .info-card__icon, .step__icon, .reason__mark, .faq__icon, .footer__social a, .bk-close {
-  transition: transform var(--t-hover) var(--ease-out), background-color var(--t-hover) var(--ease-out),
-    border-color var(--t-hover) var(--ease-out), box-shadow var(--t-hover) var(--ease-out), color var(--t-hover) var(--ease-out);
+  transition: transform var(--t-hover) var(--ease-hover), background-color var(--t-hover) var(--ease-hover),
+    border-color var(--t-hover) var(--ease-hover), box-shadow var(--t-hover) var(--ease-hover), color var(--t-hover) var(--ease-hover);
 }
 .opt, .chip span, .field input, .field textarea, .bk-progress span {
-  transition: border-color .3s var(--ease-out), background-color .3s var(--ease-out), box-shadow .3s var(--ease-out);
+  transition: border-color var(--t-hover) var(--ease-hover), background-color var(--t-hover) var(--ease-hover), box-shadow var(--t-hover) var(--ease-hover);
 }
 
 /* --- Підкреслення в меню, що росте від центру --- */
 .nav a { position: relative; padding: 6px 0; }
 .nav a::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 2px;
-  background: var(--sage); transform: scaleX(0); transition: transform var(--t-hover) var(--ease-out);
+  background: var(--sage); transform: scaleX(0); transition: transform var(--t-hover) var(--ease-hover);
 }
 .nav a:hover::after, .nav a[aria-current="page"]::after { transform: scaleX(1); }
 .header__phone:hover { color: var(--sage); }
@@ -563,7 +573,7 @@ a { transition: color var(--t-hover) var(--ease-out); }
 
 /* --- Поява при скролі (клас is-in ставить js/main.js) --- */
 .js-anim [data-reveal] { opacity: 0; }
-.js-anim [data-reveal].is-in { animation: reveal 1s var(--ease-out) var(--d, 0s) both; }
+.js-anim [data-reveal].is-in { animation: reveal 1.1s var(--ease-out) var(--d, 0s) both; }
 .js-anim .reason.is-in .reason__mark { animation: pop .6s var(--ease-out) calc(var(--d, 0s) + .25s) both; }
 .js-anim .steps::before { transform: scaleX(0); transform-origin: left; transition: transform 1.6s var(--ease-out) .2s; }
 .js-anim .steps.is-in::before { transform: scaleX(1); }
