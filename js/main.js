@@ -25,7 +25,7 @@
     '.section-head', '.section .h2.text-center', '.why__img', '.why__body > .btn', '.steps-wrap > .btn',
     '.cta', '.map', '.trust__label', '.service-hero__media', '.about-team > *', '.split > *',
     '.contacts-grid > *', '.crumbs', '.faq > h2', '.page-top__inner > .btn', 'main .section .stack > .text-center',
-    'main .section .stack > div[style*="justify-content:center"]', '.review', '.bk-head'
+    'main .section .stack > div[style*="justify-content:center"]', '.slider', '.bk-head'
   ];
   var targets = [];
   function add(el, d, kind) {
@@ -93,9 +93,69 @@
       if (!en.isIntersecting) return;
       cio.unobserve(en.target);
       // цифри на першому екрані стартують разом з появою блоку статистики
-      if (en.target.closest('.stats')) setTimeout(function () { countUp(en.target); }, 150);
+      if (en.target.closest('.stats')) countUp(en.target);
       else countUp(en.target);
     });
   }, { threshold: 0.6 });
   counters.forEach(function (el) { cio.observe(el); });
+})();
+
+/* ---------- Слайдер відгуків ---------- */
+(function () {
+  document.querySelectorAll('[data-slider]').forEach(function (root) {
+    var track = root.querySelector('.slider__track');
+    var slides = Array.prototype.slice.call(track.children);
+    var prev = root.querySelector('[data-prev]');
+    var next = root.querySelector('[data-next]');
+    var dotsBox = root.querySelector('.slider__dots');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var dots = [], timer = null;
+
+    function step() { return slides.length > 1 ? slides[1].offsetLeft - slides[0].offsetLeft : track.clientWidth; }
+    function perView() { return Math.max(1, Math.round(track.clientWidth / step())); }
+    function pages() { return Math.max(1, slides.length - perView() + 1); }
+    function index() { return Math.round(track.scrollLeft / step()); }
+    function go(i) {
+      var n = pages();
+      i = (i + n) % n;
+      track.scrollTo({ left: i * step(), behavior: reduce ? 'auto' : 'smooth' });
+    }
+    function buildDots() {
+      dotsBox.innerHTML = ''; dots = [];
+      for (var i = 0; i < pages(); i++) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.tabIndex = -1;
+        b.addEventListener('click', go.bind(null, i));
+        dotsBox.appendChild(b); dots.push(b);
+      }
+      update();
+    }
+    function update() {
+      var i = Math.min(index(), pages() - 1);
+      dots.forEach(function (d, k) { d.classList.toggle('on', k === i); });
+      prev.disabled = i <= 0;
+      next.disabled = i >= pages() - 1;
+    }
+    prev.addEventListener('click', function () { go(index() - 1); restart(); });
+    next.addEventListener('click', function () { go(index() + 1); restart(); });
+    track.addEventListener('scroll', function () { window.requestAnimationFrame(update); }, { passive: true });
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(index() + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(index() - 1); }
+    });
+    window.addEventListener('resize', buildDots);
+
+    // Автогортання раз на 6 с; пауза, коли курсор чи фокус на слайдері
+    function start() { if (!reduce && !timer) timer = setInterval(function () { go(index() + 1); }, 6000); }
+    function stop() { clearInterval(timer); timer = null; }
+    function restart() { stop(); start(); }
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop);
+    root.addEventListener('focusout', start);
+    track.addEventListener('touchstart', stop, { passive: true });
+
+    buildDots();
+    start();
+  });
 })();
