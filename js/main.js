@@ -30,7 +30,7 @@
   ];
   var singles = [
     '.section-head', '.section .h2.text-center', '.why__img', '.why__body > .btn', '.steps-wrap > .btn',
-    '.cta', '.map', '.trust__label', '.service-hero__media', '.about-team > *', '.split > *',
+    '.cta', '.map', '.trust__label', '.service-hero__media', '.split > *',
     '.contacts-grid > *', '.crumbs', '.faq > h2', '.page-top__inner > .btn', 'main .section .stack > .text-center',
     'main .section .stack > div[style*="justify-content:center"]', '.slider', '.bk-head'
   ];
