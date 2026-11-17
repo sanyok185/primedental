@@ -122,7 +122,7 @@ h1, h2, h3, p { margin: 0; }
 .crumbs [aria-current] { color: var(--ink); }
 
 /* ---------- Головна: перший екран ---------- */
-.hero { max-width: var(--container); margin: 0 auto; padding: 24px 24px 0; }
+.hero { max-width: var(--container); margin: 0 auto; padding: 24px; }
 .hero__grid {
   display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px;
   align-items: center; min-height: 560px;
@@ -477,7 +477,7 @@ a.card:hover .card__title { color: var(--sage-dark); }
   .mobile-menu .btn { margin-top: 8px; width: 100%; }
 
   /* головна */
-  .hero { padding: 32px 24px 0; }
+  .hero { padding: 32px 24px; }
   .hero__grid { grid-template-columns: 1fr; gap: 24px; min-height: 0; }
   .hero__text { padding: 0; }
   .hero__text .btn { width: 100%; }
