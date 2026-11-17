@@ -435,8 +435,14 @@ a.card:hover .card__title { color: var(--sage-dark); }
 .footer__col { flex: 1 1 160px; display: flex; flex-direction: column; gap: 8px; }
 .footer__col--wide { flex-basis: 220px; }
 .footer__label {
-  font-size: 12px; line-height: 16px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage-soft);
-  margin-bottom: 8px;
+  position: relative; padding-bottom: 12px; margin-bottom: 12px;
+  font-family: var(--font-head); font-size: 17px; line-height: 24px; font-weight: 600; letter-spacing: 0;
+  color: var(--white);
+}
+/* коротка світла риска під заголовком колонки */
+.footer__label::after {
+  content: ""; position: absolute; left: 0; bottom: 0; width: 28px; height: 2px; border-radius: 2px;
+  background: var(--sage-soft); opacity: .7;
 }
 .footer a { color: #E9E1D6; text-decoration: none; }
 .footer a:hover { color: var(--white); }
